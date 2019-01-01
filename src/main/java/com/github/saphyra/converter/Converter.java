@@ -12,7 +12,7 @@ public interface Converter<E, D> {
      * @param entity entity to convert
      * @return converted domain or null if entity is null.
      */
-    D convertEntity(@NotNull E entity);
+    D convertEntity(E entity);
 
     /**
      * Converts Optional of entity to Optional of domain.
@@ -45,7 +45,7 @@ public interface Converter<E, D> {
      * @param domain domain to convert
      * @return converted entity.
      */
-    E convertDomain(@NotNull D domain);
+    E convertDomain(D domain);
 
     /**
      * Converts Optional of domain to Optional of entity.

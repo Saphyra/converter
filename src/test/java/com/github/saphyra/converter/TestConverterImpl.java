@@ -5,12 +5,12 @@ public class TestConverterImpl extends ConverterBase<String, String> {
     static final String TEST_DOMAIN = "domain";
 
     @Override
-    public String convertEntity(String entity) {
+    public String processEntityConversion(String entity) {
         return TEST_DOMAIN;
     }
 
     @Override
-    public String convertDomain(String domain) {
+    public String processDomainConversion(String domain) {
         return TEST_ENTITY;
     }
 }
