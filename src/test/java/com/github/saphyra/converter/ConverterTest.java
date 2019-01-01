@@ -10,10 +10,24 @@ import static com.github.saphyra.converter.TestConverterImpl.TEST_DOMAIN;
 import static com.github.saphyra.converter.TestConverterImpl.TEST_ENTITY;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class ConverterTest {
     private ConverterBase<String, String> underTest = new TestConverterImpl();
+
+    @Test
+    public void testConvertEntityShouldReturnNullWhenNull(){
+        //GIVEN
+        String in = null;
+        //WHEN
+        assertNull(underTest.convertEntity(in));
+    }
+
+    @Test
+    public void testConvertEntityShouldConvertWhenNotNull(){
+        assertEquals(TEST_DOMAIN, underTest.convertEntity(TEST_ENTITY));
+    }
 
     @Test
     public void testConvertEntityOptionalShouldReturnEmptyWhenEmpty(){
@@ -61,6 +75,19 @@ public class ConverterTest {
         assertEquals(in.size(), result.size());
         assertEquals(TEST_DOMAIN, result.get(0));
         assertEquals(TEST_DOMAIN, result.get(1));
+    }
+
+    @Test
+    public void testConvertDomainShouldReturnNullWhenNull(){
+        //GIVEN
+        String in = null;
+        //WHEN
+        assertNull(underTest.convertDomain(in));
+    }
+
+    @Test
+    public void testConvertDomainShouldConvertWhenNotNull(){
+        assertEquals(TEST_ENTITY, underTest.convertDomain(TEST_DOMAIN));
     }
 
     @Test
