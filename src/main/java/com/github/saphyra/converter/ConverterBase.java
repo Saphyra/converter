@@ -7,37 +7,43 @@ import java.util.stream.Collectors;
 public abstract class ConverterBase<E, D> implements Converter<E, D> {
     @Override
     public Optional<D> convertEntity(Optional<E> entity) {
-        return convertEntityToOptional(entity.orElse(null));
+        return entity.flatMap(this::convertEntityToOptional);
     }
 
     @Override
     public Optional<D> convertEntityToOptional(E entity) {
+        if (entity == null) {
+            return Optional.empty();
+        }
         return Optional.ofNullable(convertEntity(entity));
     }
 
     @Override
-    public List<D> convertEntity(List<E> entity) {
-        if (entity == null) {
-            return null;
+    public List<D> convertEntity(List<E> entityList) {
+        if (entityList == null) {
+            throw new IllegalArgumentException("entityList must not be null.");
         }
-        return entity.stream().map(this::convertEntity).collect(Collectors.toList());
+        return entityList.stream().map(this::convertEntity).collect(Collectors.toList());
     }
 
     @Override
     public Optional<E> convertDomain(Optional<D> domain) {
-        return convertDomainToOptional(domain.orElseThrow(() -> new IllegalArgumentException("domain must not be null.")));
+        return domain.flatMap(this::convertDomainToOptional);
     }
 
     @Override
     public Optional<E> convertDomainToOptional(D domain) {
+        if (domain == null) {
+            return Optional.empty();
+        }
         return Optional.of(convertDomain(domain));
     }
 
     @Override
-    public List<E> convertDomain(List<D> domain) {
-        if (domain == null) {
-            throw new IllegalArgumentException("domain must not be null.");
+    public List<E> convertDomain(List<D> domainList) {
+        if (domainList == null) {
+            throw new IllegalArgumentException("domainList must not be null.");
         }
-        return domain.stream().map(this::convertDomain).collect(Collectors.toList());
+        return domainList.stream().map(this::convertDomain).collect(Collectors.toList());
     }
 }

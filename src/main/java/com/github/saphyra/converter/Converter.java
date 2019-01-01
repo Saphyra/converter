@@ -1,5 +1,7 @@
 package com.github.saphyra.converter;
 
+import com.sun.istack.internal.NotNull;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +12,7 @@ public interface Converter<E, D> {
      * @param entity entity to convert
      * @return converted domain or null if entity is null.
      */
-    D convertEntity(E entity);
+    D convertEntity(@NotNull E entity);
 
     /**
      * Converts Optional of entity to Optional of domain.
@@ -31,10 +33,11 @@ public interface Converter<E, D> {
     /**
      * Converts list of entities
      *
-     * @param entity entities of domain
+     * @param entityList entities of domain
      * @return list of converted domains.
+     * @throws IllegalArgumentException if entityList is null.
      */
-    List<D> convertEntity(List<E> entity);
+    List<D> convertEntity(@NotNull List<E> entityList);
 
     /**
      * Converts domain to entity.
@@ -42,7 +45,7 @@ public interface Converter<E, D> {
      * @param domain domain to convert
      * @return converted entity.
      */
-    E convertDomain(D domain);
+    E convertDomain(@NotNull D domain);
 
     /**
      * Converts Optional of domain to Optional of entity.
@@ -63,8 +66,8 @@ public interface Converter<E, D> {
     /**
      * Converts list of domains.
      *
-     * @param domain domains to convert.
+     * @param domainList domains to convert.
      * @return converted list of entities.
      */
-    List<E> convertDomain(List<D> domain);
+    List<E> convertDomain(@NotNull List<D> domainList);
 }
