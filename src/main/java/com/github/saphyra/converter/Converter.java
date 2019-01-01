@@ -66,6 +66,7 @@ public interface Converter<E, D> {
      *
      * @param domainList domains to convert.
      * @return converted list of entities.
+     * @throws IllegalArgumentException if domainList is null.
      */
     List<E> convertDomain(List<D> domainList);
 }
